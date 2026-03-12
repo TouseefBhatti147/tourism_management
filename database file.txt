@@ -1,0 +1,109 @@
+CREATE DATABASE tourism_management;
+USE tourism_management;
+
+-- USERS
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin','receptionist') DEFAULT 'receptionist',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- COUNTRIES
+CREATE TABLE countries (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    country_name VARCHAR(100) NOT NULL
+);
+
+-- PURPOSE OF VISIT
+CREATE TABLE visit_purposes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    purpose_name VARCHAR(100) NOT NULL
+);
+
+-- GUESTS
+CREATE TABLE guests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    country_id INT,
+    phone VARCHAR(20),
+    email VARCHAR(100),
+    purpose_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (country_id) REFERENCES countries(id),
+    FOREIGN KEY (purpose_id) REFERENCES visit_purposes(id)
+);
+
+-- ROOM TYPES
+CREATE TABLE room_types (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type_name VARCHAR(50),
+    price DECIMAL(10,2)
+);
+
+-- ROOMS
+CREATE TABLE rooms (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    room_number VARCHAR(20) NOT NULL UNIQUE,
+    room_type_id INT,
+    status ENUM('available','occupied','maintenance') DEFAULT 'available',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (room_type_id) REFERENCES room_types(id)
+);
+
+-- BOOKINGS
+CREATE TABLE bookings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    guest_id INT NOT NULL,
+    room_id INT NOT NULL,
+    check_in_date DATE NOT NULL,
+    check_out_date DATE NOT NULL,
+    stay_duration INT,
+    booking_status ENUM('booked','checked_in','checked_out','cancelled') DEFAULT 'booked',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (guest_id) REFERENCES guests(id) ON DELETE CASCADE,
+    FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE
+);
+
+-- BOOKING EXTENSIONS
+CREATE TABLE booking_extensions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT,
+    new_checkout_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE
+);
+
+-- PAYMENTS
+CREATE TABLE payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    payment_method ENUM('cash','card','online'),
+    payment_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE
+);
+
+-- TOURIST INTERESTS
+CREATE TABLE tourist_interests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    interest_name VARCHAR(100)
+);
+
+-- GUEST INTERESTS
+CREATE TABLE guest_interests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    guest_id INT,
+    interest_id INT,
+    
+    FOREIGN KEY (guest_id) REFERENCES guests(id) ON DELETE CASCADE,
+    FOREIGN KEY (interest_id) REFERENCES tourist_interests(id) ON DELETE CASCADE
+);
