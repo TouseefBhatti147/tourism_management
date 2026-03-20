@@ -99,8 +99,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         <!-- /.col -->
                     </div>
                 </form>
-
-
             </div>
             <!-- /.login-card-body -->
         </div>

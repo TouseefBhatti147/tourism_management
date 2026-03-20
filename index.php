@@ -12,7 +12,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Real Estate E-system</title>
+    <title>Tourism Management</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="preload" href="./css/adminlte.css" as="style" />
@@ -34,7 +34,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <aside class="app-sidebar bg-light-subtle shadow" data-bs-theme="light">
             <div class="sidebar-brand">
                 <a href="index.php" class="brand-link">
-                    <span class="brand-text fw-light">Real Estate E-System</span>
+                    <span class="brand-text fw-light">Tourism Management</span>
                 </a>
             </div>
         </aside>
@@ -47,7 +47,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">Dashboard</h3>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-end">

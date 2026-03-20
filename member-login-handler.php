@@ -15,7 +15,7 @@ try {
     $pdo = Database::getConnection();
 
     // Fetch member record
-    $stmt = $pdo->prepare("SELECT * FROM member WHERE email = ? LIMIT 1");
+    $stmt = $pdo->prepare("SELECT * FROM user WHERE email = ? LIMIT 1");
     $stmt->execute([$email]);
     $member = $stmt->fetch(PDO::FETCH_ASSOC);
 

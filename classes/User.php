@@ -2,7 +2,7 @@
 class User
 {
     private $conn;
-    private $table = "user";
+    private $table = "users";
 
     public function __construct($pdo)
     {

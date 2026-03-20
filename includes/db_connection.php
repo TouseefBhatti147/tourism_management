@@ -4,7 +4,7 @@ class Database {
     
     // --- Connection Details from your file ---
     private static $host = 'localhost';
-    private static $dbname = 'rdlpk_db1';
+    private static $dbname = 'tourism_management';
     private static $username = 'root';
     private static $password = '';
     private static $charset = 'utf8mb4';
